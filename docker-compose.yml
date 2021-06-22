@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  calibration-db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: calibrationcurve
+      POSTGRES_USER: calibrationcurve
+      POSTGRES_DB: calibrationcurve
+    ports:
+      - 5432:5432
+    volumes:
+      - calibration-db_data:/var/lib/postgresql/data/
+  calibration:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - calibration-db
+    env_file:
+      - .env
+
+volumes:
+  calibration-db_data:
