@@ -33,4 +33,7 @@ docker_migrate:
 test:
 	python3 reynolds-number-calculator/manage.py test reynolds-number-calculator/ $(ARG) --parallel --keepdb
 
+format:
+	black .
+
 
