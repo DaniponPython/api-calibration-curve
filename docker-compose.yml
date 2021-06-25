@@ -22,6 +22,5 @@ services:
       - calibration-db
     env_file:
       - .env
-
 volumes:
   calibration-db_data:
