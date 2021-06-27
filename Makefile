@@ -30,9 +30,6 @@ docker_logs:
 docker_migrate:
 	docker-compose exec calibration python manage.py migrate
 
-test:
-	python3 reynolds-number-calculator/manage.py test reynolds-number-calculator/ $(ARG) --parallel --keepdb
-
 format:
 	black .
 
