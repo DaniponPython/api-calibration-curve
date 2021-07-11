@@ -33,4 +33,7 @@ docker_migrate:
 format:
 	black .
 
+flake8_verify:
+	flake8 project/
+
 

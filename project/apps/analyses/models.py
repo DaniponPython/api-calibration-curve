@@ -29,7 +29,8 @@ class Analysis(models.Model):
     concentration = models.CharField(
         "Concentrações",
         max_length=255,
-        help_text="Valores das concentrações para cada absorbância fornecida separados por vírgulas.",
+        help_text="Valores das concentrações para cada absorbância fornecida \
+            separados por vírgulas.",
     )
 
     concentration_units = models.CharField(
@@ -47,9 +48,13 @@ class Analysis(models.Model):
         verbose_name="Analista",
     )
 
-    created = models.DateTimeField("Data de Criação", auto_now_add=True, blank=True)
+    created = models.DateTimeField(
+        "Data de Criação", auto_now_add=True, blank=True
+    )
 
-    updated = models.DateTimeField("Data de Atualização", auto_now=True, blank=True)
+    updated = models.DateTimeField(
+        "Data de Atualização", auto_now=True, blank=True
+    )
 
     class Meta:
         verbose_name_plural = "Analyses"
