@@ -6,7 +6,7 @@ docker_up:
 	docker-compose up -d
 
 docker_up_single:
-	docker-compose up -d calibration 
+	docker-compose up -d $(ARG) 
 
 docker_stop:
 	docker-compose stop
@@ -21,7 +21,7 @@ docker_test:
 docker_create_admin_user:
 	docker-compose exec calibration python manage.py createsuperuser
 
-docker_makemigrations:
+docker_migrations:
 	docker-compose exec calibration python manage.py makemigrations
 
 docker_logs:
@@ -29,6 +29,12 @@ docker_logs:
 
 docker_migrate:
 	docker-compose exec calibration python manage.py migrate
+
+docker_bash:
+	docker-compose exec $(ARG) bash
+
+docker_project_permissions:
+	docker-compose exec calibration chmod -R 777 .
 
 format:
 	black .

@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Analysis(models.Model):
@@ -24,13 +27,13 @@ class Analysis(models.Model):
     absorbance = models.CharField(
         "Absorbâncias",
         max_length=255,
-        help_text="Valores das absorbâncias lidas separados por vírgula.",
+        help_text="Valores das absorbâncias lidas separadas por vírgula.",
     )
     concentration = models.CharField(
         "Concentrações",
         max_length=255,
         help_text="Valores das concentrações para cada absorbância fornecida \
-            separados por vírgulas.",
+            separadas por vírgulas.",
     )
 
     concentration_units = models.CharField(
@@ -44,7 +47,7 @@ class Analysis(models.Model):
     analyst = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        default=1,
+        default=3,
         verbose_name="Analista",
     )
 
@@ -60,6 +63,7 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def get_absolute_url(self):
+        logger.info("Something Wrong!")
         return reverse("analysis-detail", args=[str(self.id)])
 
     def __str__(self):

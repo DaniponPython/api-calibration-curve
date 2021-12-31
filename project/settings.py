@@ -1,5 +1,7 @@
 from pathlib import Path
 from decouple import config
+import os
+from project.commons.logs import LogstashJSONFormatter
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -111,10 +113,46 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(name)s.%(module)s.%(funcName)s %(lineno)d %(message)s"  # noqa
+        },
+        "json": {
+            "()": LogstashJSONFormatter,
+            "fmt": "%(levelname)s %(asctime)s %(name)s.%(module)s.%(funcName)s %(lineno)d %(message)s",  # noqa
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "json",
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "./logs/debug.log",
+            "formatter": "json",
+        },
+    },
+    "loggers": {
+        "project": {
+            "handlers": ["file"],
+            "propagate": False,
+            "level": "DEBUG",
+        },
+        "django": {
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
+}

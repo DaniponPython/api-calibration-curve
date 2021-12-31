@@ -1,6 +1,17 @@
 version: '3.7'
 
 services:
+  calibration:
+      build: .
+      command: python manage.py runserver 0.0.0.0:8000
+      ports:
+        - 8000:8000
+      volumes:
+        - .:/usr/src/app
+      depends_on:
+        - calibration-db
+      env_file:
+        - .env
   calibration-db:
     image: postgres:alpine
     environment:
@@ -11,16 +22,6 @@ services:
       - 5432:5432
     volumes:
       - calibration-db_data:/var/lib/postgresql/data/
-  calibration:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - 8000:8000
-    volumes:
-      - .:/usr/src/app
-    depends_on:
-      - calibration-db
-    env_file:
-      - .env
+  
 volumes:
   calibration-db_data:
