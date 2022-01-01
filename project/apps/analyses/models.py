@@ -63,7 +63,6 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def get_absolute_url(self):
-        logger.info("Something Wrong!")
         return reverse("analysis-detail", args=[str(self.id)])
 
     def __str__(self):
