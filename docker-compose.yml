@@ -14,10 +14,6 @@ services:
         - .env
   calibration-db:
     image: postgres:alpine
-    environment:
-      POSTGRES_PASSWORD: calibrationcurve
-      POSTGRES_USER: calibrationcurve
-      POSTGRES_DB: calibrationcurve
     ports:
       - 5432:5432
     volumes:
