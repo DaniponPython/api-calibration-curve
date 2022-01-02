@@ -24,6 +24,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Creating logs folder
+        run: |
+          mkdir logs
+      - name: Creating debug.log file
+        run: |
+          touch debug.log
       - name: Run Tests
         run: |
           python manage.py test
